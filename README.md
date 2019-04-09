@@ -5,7 +5,9 @@ Labai didelių našumo skirtumu naudojant Struct ir Class nepastebiu. Jų veikim
 
 Struct : 0.1 s. 
 Class : 0.11 s.
+
 -------------------------------------------------------------------------------
+
 ## FLAGAI
 Naudojant Class:
 

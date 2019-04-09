@@ -1,5 +1,5 @@
 # TRECIASND
-1.1 Versija
+### :computer:[v1.1](https://github.com/odiraitis/TRECIASND/releases/tag/v1.1) Iš Struct į Class.
 
 Labai didelių našumo skirtumu naudojant Struct ir Class nepastebiu. Jų veikimo laikas yra minimaliai skirtingas.
 

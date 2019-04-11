@@ -28,26 +28,22 @@ public:
     void set_gal(double g);
     void set_galm(double m);
     //getters
-    std::string va()const
+    std::string vard()const
     {
         return vard_;
     }
-    std::string vard=va();
-    std::string pa()const
+    std::string pav()const
     {
         return pav_;
     }
-    std::string pav=pa();
-    double ga()const
+    double gal()const
     {
         return gal_;
     }
-   double gal=ga();
-    double gam()const
+    double galm()const
     {
         return galm_;
     }
-    double galm=gam();
 };
 double mediana (std::vector<int> temp_paz, int n);
 double vidurkis (std::vector<int> temp_paz,int n);

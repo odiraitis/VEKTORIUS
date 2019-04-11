@@ -43,11 +43,11 @@ bool skaicius(const std::string &str) // Tikrinimas ar vien tik skaiciai
 }
 bool gavoSkolos( const mok & i )
 {
-    return (i.galm<5 && i.gal<5);
+    return (i.galm()<5 && i.gal()<5);
 }
 bool negavoSkolos( const mok & i )
 {
-    return (i.galm>=5 && i.gal>=5);
+    return (i.galm()>=5 && i.gal()>=5);
 }
 void pazymys (std::vector<int>&laikinas, int &sk)
 {
@@ -103,23 +103,27 @@ void generuoju (std::vector<int>&laikinas,int l)
 }
 void arzodis (std::vector<mok>&temp, int i)
 {
-    for(int j=0; j<temp[i].vard.size(); j++)
+    for(int j=0; j<temp[i].vard().size(); j++)
     {
-        while(!isalpha(temp[i].vard[j])) // tikrinu ar nera skaiciaus ar kito simbolio kuris nera raide
+        while(!isalpha(temp[i].vard()[j])) // tikrinu ar nera skaiciaus ar kito simbolio kuris nera raide
         {
             std::cout<<"Iveskite mokinio varda naudodami tik raides"<<std::endl;
-            std::cin>>temp[i].vard;
+            std::string var;
+            std::cin>>var;
+            temp[i].set_vardas(var);
         }
     }
 }
 void arzodiss (std::vector<mok>&temp, int i)
 {
-    for(int j=0; j<temp[i].pav.size(); j++)
+    for(int j=0; j<temp[i].pav().size(); j++)
     {
-        while(!isalpha(temp[i].pav[j])) // tikrinu ar nera skaiciaus ar kito simbolio kuris nera raide
+        while(!isalpha(temp[i].pav()[j])) // tikrinu ar nera skaiciaus ar kito simbolio kuris nera raide
         {
             std::cout<<"Iveskite mokinio varda naudodami tik raides"<<std::endl;
-            std::cin>>temp[i].pav;
+            std::string pa;
+            std::cin>>pa;
+         temp[i].set_pavarde(pa);
         }
     }
 }
@@ -150,8 +154,8 @@ int ilg_vard(int n, std::vector<mok>temp)
     int vardas=6;
     for(int i=0; i<n; i++)
     {
-        if(temp[i].vard.size()>vardas) // ieskau ilgiausio vardo
-            vardas=temp[i].vard.size();
+        if(temp[i].vard().size()>vardas) // ieskau ilgiausio vardo
+            vardas=temp[i].vard().size();
     }
     return vardas;
 }
@@ -160,8 +164,8 @@ int ilg_pav(int n, std::vector<mok>temp)
     int pavarde=7;
     for(int i=0; i<n; i++)
     {
-        if(temp[i].pav.size()>pavarde) // ieskau ilgiausio vardo
-            pavarde=temp[i].pav.size();
+        if(temp[i].pav().size()>pavarde) // ieskau ilgiausio vardo
+            pavarde=temp[i].pav().size();
     }
     return pavarde;
 }
@@ -171,7 +175,7 @@ void sorting (int n, std::vector<mok>&temp)
     for(int i=1;i<n;++i)
     {
         for(int j=0;j<(n-i);++j)
-            if(temp[j].vard>temp[j+1].vard)
+            if(temp[j].vard()>temp[j+1].vard())
             {
                 laik=temp[j];
                 temp[j]=temp[j+1];
@@ -194,18 +198,18 @@ void spausdinimas (int n, std::vector<char>t, std::vector<mok>temp, int vardas, 
     {
         if(t[i]=='1')
         {
-            std::cout<<std::left<<std::setw(vardas+1)<<temp[i].vard;
-            std::cout<<std::left<<std::setw(pavarde+1)<<temp[i].pav;
-            std::cout<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal;
+            std::cout<<std::left<<std::setw(vardas+1)<<temp[i].vard();
+            std::cout<<std::left<<std::setw(pavarde+1)<<temp[i].pav();
+            std::cout<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal();
             std::cout<<std::left<<std::setw(5)<<x;
             std::cout<<std::endl;
         }
         if(t[i]=='2')
         {
-            std::cout<<std::left<<std::setw(vardas+1)<<temp[i].vard;
-            std::cout<<std::left<<std::setw(pavarde+1)<<temp[i].pav;
+            std::cout<<std::left<<std::setw(vardas+1)<<temp[i].vard();
+            std::cout<<std::left<<std::setw(pavarde+1)<<temp[i].pav();
             std::cout<<std::left<<std::setw(16)<<x;
-            std::cout<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm;
+            std::cout<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm();
             std::cout<<std::left<<std::endl;
         }
     }
@@ -224,10 +228,10 @@ void spausdinimas2 (int n, std::vector<mok>temp)
         printf("-");
     std::cout<<std::endl;
     for (int i=0; i<=n-1; i++)
-    {       std::cout<<std::left<<std::setw(vardas+1)<<temp[i].vard;
-            std::cout<<std::left<<std::setw(pavarde+1)<<temp[i].pav;
-            std::cout<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal;
-            std::cout<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm;
+    {       std::cout<<std::left<<std::setw(vardas+1)<<temp[i].vard();
+            std::cout<<std::left<<std::setw(pavarde+1)<<temp[i].pav();
+            std::cout<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal();
+            std::cout<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm();
             std::cout<<std::left<<std::endl;
     }
 }
@@ -266,8 +270,8 @@ void skaitymas2(std::vector<mok>&tem, std::string pava, int &l, int &n)
             tem.push_back(mok());
             std::istringstream in_line(eil); // Skaitymas is eilutes
             in_line >> vard >> pav;
-            tem[n].vard=vard;
-            tem[n].pav=pav;
+            tem[n].set_vardas(vard);
+            tem[n].set_pavarde(pav);
             n++;
             int sk=0;
             std::vector<int> pazymiai;
@@ -286,8 +290,11 @@ void skaitymas2(std::vector<mok>&tem, std::string pava, int &l, int &n)
             in_line.end;
             int egz = 0;
             egz = pazymiai[sk-1]; // Paskutinis ivestas skaicius egzamino pazimys
-            tem[l].gal=galutinis_vid(egz,pazymiai,sk);
-            tem[l].galm=galutinis_med(egz,pazymiai,sk);
+            double tempgal, tempgalm;
+            tempgal=galutinis_vid(egz,pazymiai,sk);
+            tem[l].set_gal(tempgal);
+            tempgalm=galutinis_med(egz,pazymiai,sk);
+            tem[l].set_galm(tempgalm);
             in_line.clear();
             in_file.clear();
             l++;
@@ -306,14 +313,14 @@ void spausdinimas2 (int n, std::vector<mok>temp, std::vector<mok>temp_lievi)
     int did_vard=6;
     for(int i=0; i<n; i++)
     {
-        if(temp[i].vard.size()>did_vard) // ieskau ilgiausio vardo
-            did_vard=temp[i].vard.size();
+        if(temp[i].vard().size()>did_vard) // ieskau ilgiausio vardo
+            did_vard=temp[i].vard().size();
     }
     int did_pav=7;
     for(int i=0; i<n; i++)
     {
-        if(temp[i].pav.size()>did_pav) // ieskau ilgiausio vardo
-            did_pav=temp[i].vard.size();
+        if(temp[i].pav().size()>did_pav) // ieskau ilgiausio vardo
+            did_pav=temp[i].vard().size();
     }
 
     std::ofstream kiet ("kieciukai.txt");
@@ -337,18 +344,18 @@ void spausdinimas2 (int n, std::vector<mok>temp, std::vector<mok>temp_lievi)
     nus<<std::endl;
     for(int i=0; i<temp.size(); i++)
     {
-        kiet<<std::left<<std::setw(did_vard+1)<<temp[i].vard;
-        kiet<<std::left<<std::setw(did_pav+1)<<temp[i].pav;
-        kiet<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal;
-        kiet<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm;
+        kiet<<std::left<<std::setw(did_vard+1)<<temp[i].vard();
+        kiet<<std::left<<std::setw(did_pav+1)<<temp[i].pav();
+        kiet<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal();
+        kiet<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm();
         kiet<<std::endl;
     }
     for(int i=0; i<temp_lievi.size(); i++)
     {
-        nus<<std::left<<std::setw(did_vard+1)<<temp_lievi[i].vard;
-        nus<<std::left<<std::setw(did_pav+1)<<temp_lievi[i].pav;
-        nus<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp_lievi[i].gal;
-        nus<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp_lievi[i].galm;
+        nus<<std::left<<std::setw(did_vard+1)<<temp_lievi[i].vard();
+        nus<<std::left<<std::setw(did_pav+1)<<temp_lievi[i].pav();
+        nus<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp_lievi[i].gal();
+        nus<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp_lievi[i].galm();
         nus<<std::endl;
     }
 }
@@ -362,8 +369,8 @@ void skaitymas3(std::vector<mok>&tem, int &n, int &l)
             tem.push_back(mok());
             std::istringstream in_line(eil); // Skaitymas is eilutes
             in_line >> vard >> pav;
-            tem[n].vard=vard;
-            tem[n].pav=pav;
+            tem[n].set_vardas(vard);
+            tem[n].set_pavarde(pav);
             n++;
             int sk=0;
             std::vector<int> pazymiai;
@@ -382,8 +389,11 @@ void skaitymas3(std::vector<mok>&tem, int &n, int &l)
             in_line.end;
             int egz = 0;
             egz = pazymiai[sk-1]; // Paskutinis ivestas skaicius egzamino pazimys
-            tem[l].gal=galutinis_vid(egz,pazymiai,sk);
-            tem[l].galm=galutinis_med(egz,pazymiai,sk);
+            double tempgal,tempgalm;
+            tempgal=galutinis_vid(egz,pazymiai,sk);
+            tem[l].set_gal(tempgal);
+            tempgalm=galutinis_med(egz,pazymiai,sk);
+            tem[l].set_galm(tempgalm);
             in_line.clear();
             in_file.clear();
             l++;

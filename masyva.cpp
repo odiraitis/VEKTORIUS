@@ -79,10 +79,13 @@ int main()
 
 
                             std::cout<<"Iveskite "<<i+1<<" -ojo mokinio varda"<<std::endl;
-                            std::cin>>A[i].vard;
+                            std::string va, pa;
+                            std::cin>>va;
+                            A[i].set_vardas(va);
                             arzodis(A,i);
                             std::cout<<"Iveskite "<<i+1<<" -ojo mokinio pavarde"<<std::endl;
-                            std::cin>>A[i].pav;
+                            std::cin>>pa;
+                            A[i].set_pavarde(pa);
                             arzodiss(A,i);
                             std::cout<<"Iveskite "<<i+1<<" -ojo mokinio egzamino pazymi"<<std::endl;
                             std::cin>>egz;
@@ -90,8 +93,11 @@ int main()
                             {
                             egz=ger_egz(egz);
                             }
-                            A[i].gal=galutinis_vid(egz,pazymiai,sk);
-                            A[i].galm=galutinis_med(egz,pazymiai,sk);
+                            double galut, galutm;
+                            galut=galutinis_vid(egz,pazymiai,sk);
+                            A[i].set_gal(galut);
+                            galutm=galutinis_med(egz,pazymiai,sk);
+                            A[i].set_galm(galutm);
                             i++;
                             m++;
                             break;

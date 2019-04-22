@@ -3,23 +3,27 @@
 -------------------------------------------------------------------------------
 Labai didelių našumo skirtumu naudojant Struct ir Class nepastebiu. Jų veikimo laikas yra minimaliai skirtingas.
 
-Struct : 0.1 s. 
-Class : 0.11 s.
+Struct : 1. s. 
+Class : 1.1 s.
 
 -------------------------------------------------------------------------------
 
 ## FLAGAI
 Naudojant Class:
 
-Optimizavimo -01 vėliavėlės vykdymo laikas yra : 0.13924 s.
-Optimizavimo -02 vėliavėlės vykdymo laikas yra : 0.114442 s.
-Optimizavimo -03 vėliavėlės vykdymo laikas yra : 0.0927493 s.
+Optimizavimo -01 vėliavėlės vykdymo laikas yra : 1.3924 s.
+
+Optimizavimo -02 vėliavėlės vykdymo laikas yra : 1.14442 s.
+
+Optimizavimo -03 vėliavėlės vykdymo laikas yra : 0.927493 s.
 
 Naudojant Struct:
 
-Optimizavimo -01 vėliavėlės vykdymo laikas yra : 0.0852296 s.
-Optimizavimo -02 vėliavėlės vykdymo laikas yra : 0.0908774 s.
-Optimizavimo -03 vėliavėlės vykdymo laikas yra : 0.083839 s.
+Optimizavimo -01 vėliavėlės vykdymo laikas yra : 0.852296 s.
+
+Optimizavimo -02 vėliavėlės vykdymo laikas yra : 0.908774 s.
+
+Optimizavimo -03 vėliavėlės vykdymo laikas yra : 0.83839 s.
 
 Didelį našuma kompiliavimo vėliavėlės duoda naudojant Struct, o ne Class.
 

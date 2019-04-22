@@ -44,6 +44,24 @@ public:
     {
         return galm_;
     }
+    friend std::ostream& operator<<(std::ostream& out,std::vector<mok>&temp) {
+        for(int i=0; i<temp.size();i++)
+        {
+            out<<std::left<<std::setw(11+3)<<temp[i].vard_;
+            out<<std::left<<std::setw(11+3)<<temp[i].pav_;
+            out<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal_;
+            out<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm_;
+            out<<std::endl;
+        }
+        
+        return out;
+    }
+    friend bool operator<(const mok &temp, int n) {
+        return (temp.galm_<n && temp.gal_<n);
+    }
+    friend bool operator>=(const mok &temp, int n) {
+        return (temp.galm_>=n && temp.gal_>=n);
+    }
 };
 double mediana (std::vector<int> temp_paz, int n);
 double vidurkis (std::vector<int> temp_paz,int n);

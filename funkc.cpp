@@ -43,11 +43,13 @@ bool skaicius(const std::string &str) // Tikrinimas ar vien tik skaiciai
 }
 bool gavoSkolos( const mok & i )
 {
-    return (i.galm()<5 && i.gal()<5);
+    int n=5;
+    return (i<n);
 }
 bool negavoSkolos( const mok & i )
 {
-    return (i.galm()>=5 && i.gal()>=5);
+    int n=5;
+    return (i>=n);
 }
 void pazymys (std::vector<int>&laikinas, int &sk)
 {
@@ -264,6 +266,7 @@ void skaitymas2(std::vector<mok>&tem, std::string pava, int &l, int &n)
 {
     std::string temp;
     std::string eil,vard,pav;
+    mok skaitau;
     std::ifstream in_file (pava);
     if (in_file.good()){
         while(std::getline(in_file,eil)){  // Nuskaito po visa eilute txt faile
@@ -300,6 +303,7 @@ void skaitymas2(std::vector<mok>&tem, std::string pava, int &l, int &n)
             l++;
         }
     }
+   
 }
 void atranka (std::vector<mok>&temp_lievi, std::vector<mok>&temp)
 {
@@ -342,14 +346,11 @@ void spausdinimas2 (int n, std::vector<mok>temp, std::vector<mok>temp_lievi)
     
     kiet<<std::endl;
     nus<<std::endl;
-    for(int i=0; i<temp.size(); i++)
-    {
-        kiet<<std::left<<std::setw(did_vard+1)<<temp[i].vard();
-        kiet<<std::left<<std::setw(did_pav+1)<<temp[i].pav();
-        kiet<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal();
-        kiet<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm();
-        kiet<<std::endl;
-    }
+    //----------------------------
+   
+    kiet<<temp;  //cia naudoju operatoriu << isvedimui
+    //----------------------------
+
     for(int i=0; i<temp_lievi.size(); i++)
     {
         nus<<std::left<<std::setw(did_vard+1)<<temp_lievi[i].vard();
@@ -364,11 +365,13 @@ void skaitymas3(std::vector<mok>&tem, int &n, int &l)
     std::string temp;
     std::string eil,vard,pav;
     std::ifstream in_file ("kursiokai.txt");
+    
     if (in_file.good()){
         while(std::getline(in_file,eil)){  // Nuskaito po visa eilute txt faile
             tem.push_back(mok());
             std::istringstream in_line(eil); // Skaitymas is eilutes
-            in_line >> vard >> pav;
+            in_line >> vard>>pav;
+            
             tem[n].set_vardas(vard);
             tem[n].set_pavarde(pav);
             n++;

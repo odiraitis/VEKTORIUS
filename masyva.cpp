@@ -78,14 +78,13 @@ int main()
                             }
 
 
-                            std::cout<<"Iveskite "<<i+1<<" -ojo mokinio varda"<<std::endl;
-                            std::string va, pa;
-                            std::cin>>va;
-                            A[i].set_vardas(va);
+                            std::cout<<"Iveskite "<<i+1<<" -ojo mokinio varda ir pavarde"<<std::endl;
+                           
+                          std::string va, pa;
+                           std::cin>>va>>pa;
+                           A[i].set_vardas(va);
+                          A[i].set_pavarde(pa);
                             arzodis(A,i);
-                            std::cout<<"Iveskite "<<i+1<<" -ojo mokinio pavarde"<<std::endl;
-                            std::cin>>pa;
-                            A[i].set_pavarde(pa);
                             arzodiss(A,i);
                             std::cout<<"Iveskite "<<i+1<<" -ojo mokinio egzamino pazymi"<<std::endl;
                             std::cin>>egz;
@@ -131,7 +130,7 @@ int main()
             fail_generav();
             std::string pav;
            
-            for(int i=10; i<100000; i*=10)
+            for(int i=10; i<=100000; i*=10)
             {
                 std::string temp = std::to_string(i);
                 pav=temp +".txt";
@@ -147,6 +146,7 @@ int main()
             std::chrono::duration<double> diff = end-start;
             std::cout << "Failu generavimas ir nuskaitymas, paskirstymas uztruko: "
             << diff.count() << " s\n";
+            break;
         }
         else if (kazkas!='1' && kazkas!='2' && kazkas!='3')
         {

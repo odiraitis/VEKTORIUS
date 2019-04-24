@@ -268,14 +268,15 @@ void skaitymas2(std::vector<mok>&tem, std::string pava, int &l, int &n)
     std::string eil,vard,pav;
     mok skaitau;
     std::ifstream in_file (pava);
+    mok te;
     if (in_file.good()){
         while(std::getline(in_file,eil)){  // Nuskaito po visa eilute txt faile
             tem.push_back(mok());
             std::istringstream in_line(eil); // Skaitymas is eilutes
-            in_line >> vard >> pav;
-            tem[n].set_vardas(vard);
-            tem[n].set_pavarde(pav);
-            n++;
+            in_line>>te;
+            tem[n].set_vardas(te.vard());
+            tem[n].set_pavarde(te.pav());
+             n++;
             int sk=0;
             std::vector<int> pazymiai;
             while(in_line>>temp){

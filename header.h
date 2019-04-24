@@ -56,6 +56,12 @@ public:
         
         return out;
     }
+    friend std::istream& operator>>(std::istream& in, mok &temp) {
+    
+        in>>temp.vard_>>temp.pav_;
+        
+        return in;
+    }
     friend bool operator<(const mok &temp, int n) {
         return (temp.galm_<n && temp.gal_<n);
     }

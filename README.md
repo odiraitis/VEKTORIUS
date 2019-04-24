@@ -1,5 +1,7 @@
 # TRECIASND
 ### :computer:[v1.1](https://github.com/odiraitis/TRECIASND/releases/tag/v1.1) Iš Struct į Class.
+
+### Tikslas : Palyginti abiejų programų: naudojančios struct iš ankstesniojo darbo ir naudojančio class tipo Studentus iš dabartinės realizacijos spartą (veikimo laiką).
 -------------------------------------------------------------------------------
 Labai didelių našumo skirtumu naudojant Struct ir Class nepastebiu. Jų veikimo laikas yra minimaliai skirtingas.
 
@@ -28,3 +30,13 @@ Optimizavimo -03 vėliavėlės vykdymo laikas yra : 0.83839 s.
 Didelį našuma kompiliavimo vėliavėlės duoda naudojant Struct, o ne Class.
 
 Tiesa gana geras laikas ir Struct ir Class buvo naudojant -03 vėliavėlę.
+
+--------------------------------------------------------------
+
+### :computer:[v1.2](https://github.com/odiraitis/TRECIASND/releases/tag/v1.2) operatoriu overloadinimas.
+
+### Tikslas: pritaikyti operatorius kur tikslinga savo programoje.
+
+Panaudojus operatorius sparta nepasikeitė (taip ir turėjo būti). 
+
+Atlikdamas šį darbą pradėjau naudoti friend funkcijas, kurios leidžia tiesiogiai pasiekti PRIVATE kintamuosius ( tačiau tame slypi daug pavojų).

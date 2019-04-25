@@ -40,3 +40,6 @@ Tiesa gana geras laikas ir Struct ir Class buvo naudojant -03 vėliavėlę.
 Panaudojus operatorius sparta nepasikeitė (taip ir turėjo būti). 
 
 Atlikdamas šį darbą pradėjau naudoti friend funkcijas, kurios leidžia tiesiogiai pasiekti PRIVATE kintamuosius ( tačiau tame slypi daug pavojų).
+ ### PATAISYTA VERSIJA :computer:[v1.21](https://github.com/odiraitis/TRECIASND/releases/tag/v1.21) operatoriu overloadinimas.
+ 
+ --------------------------------------------------------------

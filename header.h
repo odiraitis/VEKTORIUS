@@ -22,6 +22,12 @@ private:
     std::string vard_;
     std::string pav_;
 public:
+    mok(){
+        vard_ = " ";
+        pav_ = " ";
+        gal_ = 0;
+        galm_ = 0;
+    }
    //setters
     void set_vardas(std::string v);
     void set_pavarde(std::string p);
@@ -65,8 +71,20 @@ public:
     friend bool operator<(const mok &temp, int n) {
         return (temp.galm_<n && temp.gal_<n);
     }
+    friend bool operator<(const mok &temp1,const mok &temp2) {
+        return (temp1.galm_<temp2.galm_);
+    }
     friend bool operator>=(const mok &temp, int n) {
         return (temp.galm_>=n && temp.gal_>=n);
+    }
+    friend bool operator== (const mok &temp1, const mok &temp2)
+    {
+        return (temp1.vard_== temp2.vard_);
+    }
+    
+    friend bool operator!= (const mok &temp1, const mok &temp2)
+    {
+        return !(temp1.pav_==temp2.pav_);
     }
 };
 double mediana (std::vector<int> temp_paz, int n);
@@ -92,3 +110,5 @@ void skaitymas2(std::vector<mok>&tem, std::string pava, int &l, int &n);
 void atranka (std::vector<mok>&temp_lievi, std::vector<mok>&temp);
 void spausdinimas2 (int n, std::vector<mok>temp, std::vector<mok>temp_lievi);
 void skaitymas3(std::vector<mok>&tem, int &n, int &l);
+bool lyginuVardus(mok i1, mok i2);
+bool lyginuGal(mok i1, mok i2);

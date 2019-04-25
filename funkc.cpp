@@ -218,7 +218,8 @@ void spausdinimas (int n, std::vector<char>t, std::vector<mok>temp, int vardas, 
 }
 void spausdinimas2 (int n, std::vector<mok>temp)
 {
-    sorting(n,temp);
+    sort(temp.begin(),temp.end(),lyginuVardus);
+    sort(temp.begin(),temp.end(),lyginuGal);
     int vardas=ilg_vard(n,temp);
     int pavarde=ilg_pav(n,temp);
     std::cout<<std::left<<std::setw(vardas+1)<<"Vardas ";
@@ -403,4 +404,12 @@ void skaitymas3(std::vector<mok>&tem, int &n, int &l)
             l++;
         }
     }
+}
+bool lyginuVardus(mok i1, mok i2)
+{
+    return (i1== i2);
+}
+bool lyginuGal(mok i1, mok i2)
+{
+    return (i1<i2);
 }

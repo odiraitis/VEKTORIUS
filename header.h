@@ -13,14 +13,28 @@
 #include <stdlib.h>
 #include <chrono>
 #include <random>
-
-class mok
+class zmogus{
+public:
+    void set_vardas(std::string v)
+    {
+        vard_=v;
+    }
+    void set_pavarde(std::string p)
+    {
+        pav_=p;
+    }
+    virtual void set_gal(double g) = 0;
+    virtual void set_galm(double m) = 0;
+protected:
+    std::string vard_;
+    std::string pav_;
+    
+};
+class mok: public zmogus
 {
 private:
     double gal_; // galutinis
     double galm_;
-    std::string vard_;
-    std::string pav_;
 public:
     mok(){
         vard_ = " ";
@@ -29,8 +43,6 @@ public:
         galm_ = 0;
     }
    //setters
-    void set_vardas(std::string v);
-    void set_pavarde(std::string p);
     void set_gal(double g);
     void set_galm(double m);
     //getters
@@ -55,7 +67,7 @@ public:
         {
             out<<std::left<<std::setw(11+3)<<temp[i].vard_;
             out<<std::left<<std::setw(11+3)<<temp[i].pav_;
-            out<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal_;
+        out<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal_;
             out<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm_;
             out<<std::endl;
         }
@@ -77,12 +89,12 @@ public:
     friend bool operator>=(const mok &temp, int n) {
         return (temp.galm_>=n && temp.gal_>=n);
     }
-    friend bool operator== (const mok &temp1, const mok &temp2)
+    friend bool operator==(const mok &temp1, const mok &temp2)
     {
         return (temp1.vard_== temp2.vard_);
     }
     
-    friend bool operator!= (const mok &temp1, const mok &temp2)
+    friend bool operator!=(const mok &temp1, const mok &temp2)
     {
         return !(temp1.pav_==temp2.pav_);
     }

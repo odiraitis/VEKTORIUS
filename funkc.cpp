@@ -1,13 +1,5 @@
 #include "header.h"
 //setters
-void mok::set_vardas(std::string v)
-{
-    vard_=v;
-}
-void mok::set_pavarde(std::string p)
-{
-    pav_=p;
-}
 void mok::set_gal(double g)
 {
     gal_=g;
@@ -218,8 +210,8 @@ void spausdinimas (int n, std::vector<char>t, std::vector<mok>temp, int vardas, 
 }
 void spausdinimas2 (int n, std::vector<mok>temp)
 {
-    sort(temp.begin(),temp.end(),lyginuVardus);
     sort(temp.begin(),temp.end(),lyginuGal);
+    sort(temp.begin(),temp.end(),lyginuVardus);
     int vardas=ilg_vard(n,temp);
     int pavarde=ilg_pav(n,temp);
     std::cout<<std::left<<std::setw(vardas+1)<<"Vardas ";
@@ -316,31 +308,19 @@ void atranka (std::vector<mok>&temp_lievi, std::vector<mok>&temp)
 }
 void spausdinimas2 (int n, std::vector<mok>temp, std::vector<mok>temp_lievi)
 {
-    int did_vard=6;
-    for(int i=0; i<n; i++)
-    {
-        if(temp[i].vard().size()>did_vard) // ieskau ilgiausio vardo
-            did_vard=temp[i].vard().size();
-    }
-    int did_pav=7;
-    for(int i=0; i<n; i++)
-    {
-        if(temp[i].pav().size()>did_pav) // ieskau ilgiausio vardo
-            did_pav=temp[i].vard().size();
-    }
 
     std::ofstream kiet ("kieciukai.txt");
     std::ofstream nus ("nuskriaustukai.txt");
-    kiet<<std::left<<std::setw(did_vard+1)<<"Vardas ";
-    kiet<<std::left<<std::setw(did_pav+1)<<"Pavarde ";
+    kiet<<std::left<<std::setw(11+1)<<"Vardas ";
+    kiet<<std::left<<std::setw(11+1)<<"Pavarde ";
     kiet<<"Galutinis (Vid.)";
     kiet<<(" Galutinis (Med.)\n ");
-    nus<<std::left<<std::setw(did_vard+1)<<"Vardas ";
-    nus<<std::left<<std::setw(did_pav+1)<<"Pavarde ";
+    nus<<std::left<<std::setw(11+1)<<"Vardas ";
+    nus<<std::left<<std::setw(11+1)<<"Pavarde ";
     nus<<"Galutinis (Vid.)";
     nus<<(" Galutinis (Med.)\n ");
     char x='x'; // nera vid arba med reiksmes nes jos nenorejo vartotojas
-    for (int i=0; i<did_vard+did_pav+36; i++)
+    for (int i=0; i<11+11+36; i++)
     {
         kiet<<"-";
         nus<<"-";
@@ -355,8 +335,8 @@ void spausdinimas2 (int n, std::vector<mok>temp, std::vector<mok>temp_lievi)
 
     for(int i=0; i<temp_lievi.size(); i++)
     {
-        nus<<std::left<<std::setw(did_vard+1)<<temp_lievi[i].vard();
-        nus<<std::left<<std::setw(did_pav+1)<<temp_lievi[i].pav();
+        nus<<std::left<<std::setw(11+1)<<temp_lievi[i].vard();
+        nus<<std::left<<std::setw(11+1)<<temp_lievi[i].pav();
         nus<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp_lievi[i].gal();
         nus<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp_lievi[i].galm();
         nus<<std::endl;
@@ -413,3 +393,4 @@ bool lyginuGal(mok i1, mok i2)
 {
     return (i1<i2);
 }
+

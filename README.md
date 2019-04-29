@@ -11,6 +11,11 @@ Class : 1.1 s.
 -------------------------------------------------------------------------------
 
 ## FLAGAI
+
+Naudojant flagus įsitikinau, kad jie duoda tikrai daug našumo ir optimizuoja programą (aišku tai priklauso ir nuo kompiliatoriaus).
+
+
+
 Naudojant Class:
 
 Optimizavimo -01 vėliavėlės vykdymo laikas yra : 1.3924 s.
@@ -39,7 +44,14 @@ Tiesa gana geras laikas ir Struct ir Class buvo naudojant -03 vėliavėlę.
 
 Panaudojus operatorius sparta nepasikeitė (taip ir turėjo būti). 
 
+Pagrindinis PLIUSAS yra tai, kad galima kurti naujus tipus, kurie veikia kaip built-in tipai.
+
 Atlikdamas šį darbą pradėjau naudoti friend funkcijas, kurios leidžia tiesiogiai pasiekti PRIVATE kintamuosius ( tačiau tame slypi daug pavojų).
+
  ### PATAISYTA VERSIJA :computer:[v1.21](https://github.com/odiraitis/TRECIASND/releases/tag/v1.21) operatoriu overloadinimas.
  
  --------------------------------------------------------------
+ 
+### :computer:[v1.5](https://github.com/odiraitis/TRECIASND/releases/tag/v1.2) Ideta base class, bei copy semantika.
+
+

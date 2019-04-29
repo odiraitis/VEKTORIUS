@@ -36,11 +36,28 @@ private:
     double gal_; // galutinis
     double galm_;
 public:
+    ~mok(){}
     mok(){
         vard_ = " ";
         pav_ = " ";
         gal_ = 0;
         galm_ = 0;
+    }
+    mok(const  mok& a)
+    {
+        vard_ = a.vard_;
+        pav_ = a.pav_;
+        gal_ = a.gal_;
+        galm_ = a.galm_;
+    }
+    mok& operator=(const mok& a){
+        if(&a == this) return *this;
+        vard_ = a.vard_;
+        pav_ = a.pav_;
+        gal_ = a.gal_;
+        galm_ = a.galm_;
+        return *this;
+        
     }
    //setters
     void set_gal(double g);

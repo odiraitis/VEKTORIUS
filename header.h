@@ -36,13 +36,14 @@ private:
     double gal_; // galutinis
     double galm_;
 public:
-    ~mok(){}
     mok(){
         vard_ = " ";
         pav_ = " ";
         gal_ = 0;
         galm_ = 0;
     }
+    
+    // copy semantika
     mok(const  mok& a)
     {
         vard_ = a.vard_;
@@ -57,7 +58,6 @@ public:
         gal_ = a.gal_;
         galm_ = a.galm_;
         return *this;
-        
     }
    //setters
     void set_gal(double g);

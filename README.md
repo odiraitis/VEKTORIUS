@@ -184,7 +184,6 @@ private:
     double gal_; // galutinis
     double galm_;
 public:
-    ~mok(){}
     mok(){
         vard_ = " ";
         pav_ = " ";

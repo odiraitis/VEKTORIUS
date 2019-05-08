@@ -3,31 +3,31 @@ int main()
 {
     int m=0;
     int n;
-
-
+    
+    
     char kazkas; // skaityt is failo ar ne
-
+    
     std::string testas;
     char kurie; // generuoti skaicius ar vesti ranka
     std::vector <mok> A; // susikuriu vektoriu
-   
+    
     int skaic=0;
-
+    
     std::vector <char> kuris; // generuoti su vidurkiu ar mediana
-
+    
     int z=0;
     int egz; // egzamino pazymys
-
+    
     std::cout<<"Jei norite skaityti is failo spauskite 1, jei norite duomenis rinktis pats spauskite 2, jei norite sugeneruoti failus spauskite 3 ?";
     while (std::cin>>kazkas)
     {
-
-
+        
+        
         if(kazkas=='2')
         {
             int i=0;
             int nr=0; // studentu skaic
-
+            
             std::cout<<"Jei norite ivesti nauja mokini spauskite bet koki simboli, jei norite baigti iveskite raide 'f' "<<std::endl;
             while(std::cin>>testas)
             {
@@ -38,11 +38,11 @@ int main()
                     std::cout<<"Jei norite, kad pazymiai butu sugeneruoti spauskite 1, jei norite juos ivesti rankiniu budu, spauskite 2"<<std::endl;
                     while(std::cin>>kurie)
                     {
-
+                        
                         if(kurie=='1' or kurie=='2')
                         {
-
-
+                            
+                            
                             std::cout<<"Jei galutinis pazymys skaiciuojamas su vidurkiu spauskite 1, jei su mediana 2 "<<std::endl;
                             kuris.push_back(char()); // padarau vietos vektoriuje
                             std::cin>>kuris[skaic];
@@ -52,12 +52,12 @@ int main()
                                 std::cout<<"Jei norite skaicuoti su mediana spauskite 1, jei su vidurkiu 2"<<std::endl;
                                 kuris.push_back(char());
                                 std::cin>>kuris[i];
-
-
+                                
+                                
                             }
                             std::vector<int>pazymiai;
                             int sk=0;
-                       
+                            
                             if(kurie=='2')
                             {
                                 std::cout<<"Ivedus kiekviena skaiciu spauskite 'ENTER', norint baigti iveskite bet koki kita skaiciu"<<std::endl;
@@ -76,21 +76,21 @@ int main()
                                 }
                                 generuoju(pazymiai,n,sk);
                             }
-
-
+                            
+                            
                             std::cout<<"Iveskite "<<i+1<<" -ojo mokinio varda ir pavarde"<<std::endl;
-                           
-                          std::string va, pa;
-                           std::cin>>va>>pa;
-                           A[i].set_vardas(va);
-                          A[i].set_pavarde(pa);
+                            
+                            std::string va, pa;
+                            std::cin>>va>>pa;
+                            A[i].set_vardas(va);
+                            A[i].set_pavarde(pa);
                             arzodis(A,i);
                             arzodiss(A,i);
                             std::cout<<"Iveskite "<<i+1<<" -ojo mokinio egzamino pazymi"<<std::endl;
                             std::cin>>egz;
                             while(std::cin.fail() or egz<1 or egz>10)
                             {
-                            egz=ger_egz(egz);
+                                egz=ger_egz(egz);
                             }
                             double galut, galutm;
                             galut=galutinis_vid(egz,pazymiai,sk);
@@ -114,7 +114,7 @@ int main()
             int did_pav=ilg_pav(nr,A);
             spausdinimas(nr,kuris,A,did_vard,did_pav);
         }
-
+        
         else if (kazkas=='1')
         {
             int kiek=0;
@@ -129,14 +129,14 @@ int main()
             int nr=0;
             fail_generav();
             std::string pav;
-           
+            
             for(int i=10; i<=100000; i*=10)
             {
                 std::string temp = std::to_string(i);
                 pav=temp +".txt";
                 skaitymas2(A,pav,k,nr);
             }
-             auto start = std::chrono::high_resolution_clock::now();
+            auto start = std::chrono::high_resolution_clock::now();
             std::vector<mok>lievi;
             atranka(lievi,A);
             int r=0;

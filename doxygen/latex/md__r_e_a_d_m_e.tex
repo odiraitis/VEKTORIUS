@@ -1,0 +1,286 @@
+\subsubsection*{\+:computer\+:\href{https://github.com/odiraitis/TRECIASND/releases/tag/v1.1}{\texttt{ v1.\+1}} Iš Struct į Class.}
+
+\subsection*{\#\#\# Tikslas \+: Palyginti abiejų programų\+: naudojančios struct iš ankstesniojo darbo ir naudojančio class tipo Studentus iš dabartinės realizacijos spartą (veikimo laiką). }
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ \{c++\}}
+\DoxyCodeLine{class mok}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{private:}
+\DoxyCodeLine{    double gal\_; // galutinis}
+\DoxyCodeLine{    double galm\_;}
+\DoxyCodeLine{    std::string vard\_;}
+\DoxyCodeLine{    std::string pav\_;}
+\DoxyCodeLine{public:}
+\DoxyCodeLine{   }
+\DoxyCodeLine{    mok()\{}
+\DoxyCodeLine{        vard\_ = " ";}
+\DoxyCodeLine{        pav\_ = " ";}
+\DoxyCodeLine{        gal\_ = 0;}
+\DoxyCodeLine{        galm\_ = 0;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    //setters}
+\DoxyCodeLine{    void set\_vardas(std::string v);}
+\DoxyCodeLine{    void set\_pavarde(std::string p);}
+\DoxyCodeLine{    void set\_gal(double g);}
+\DoxyCodeLine{    void set\_galm(double m);}
+\DoxyCodeLine{    //getters}
+\DoxyCodeLine{    std::string vard()const}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return vard\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    std::string pav()const}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return pav\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    double gal()const}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return gal\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    double galm()const}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return galm\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\};}
+\end{DoxyCode}
+ Labai didelių našumo skirtumu naudojant Struct ir Class nepastebiu. Jų veikimo laikas yra minimaliai skirtingas.
+
+Struct \+: 1. s. Class \+: 1.\+1 s.
+
+
+
+
+
+\subsection*{F\+L\+A\+G\+AI}
+
+Naudojant flagus įsitikinau, kad jie duoda tikrai daug našumo ir optimizuoja programą (aišku tai priklauso ir nuo kompiliatoriaus).
+
+Naudojant Class\+:
+
+Optimizavimo -\/01 vėliavėlės vykdymo laikas yra \+: 1.\+3924 s.
+
+Optimizavimo -\/02 vėliavėlės vykdymo laikas yra \+: 1.\+14442 s.
+
+Optimizavimo -\/03 vėliavėlės vykdymo laikas yra \+: 0.\+927493 s.
+
+Naudojant Struct\+:
+
+Optimizavimo -\/01 vėliavėlės vykdymo laikas yra \+: 0.\+852296 s.
+
+Optimizavimo -\/02 vėliavėlės vykdymo laikas yra \+: 0.\+908774 s.
+
+Optimizavimo -\/03 vėliavėlės vykdymo laikas yra \+: 0.\+83839 s.
+
+Didelį našuma kompiliavimo vėliavėlės duoda naudojant Struct, o ne Class.
+
+Tiesa gana geras laikas ir Struct ir Class buvo naudojant -\/03 vėliavėlę.
+
+
+
+
+
+\subsubsection*{\+:computer\+:\href{https://github.com/odiraitis/TRECIASND/releases/tag/v1.2}{\texttt{ v1.\+2}} operatoriu overloadinimas.}
+
+\subsubsection*{P\+A\+T\+A\+I\+S\+Y\+TA V\+E\+R\+S\+I\+JA \+:computer\+:\href{https://github.com/odiraitis/TRECIASND/releases/tag/v1.21}{\texttt{ v1.\+21}} operatoriu overloadinimas.}
+
+\subsubsection*{Tikslas\+: pritaikyti operatorius kur tikslinga savo programoje.}
+
+Panaudojus operatorius sparta nepasikeitė (taip ir turėjo būti).
+
+Pagrindinis P\+L\+I\+U\+S\+AS yra tai, kad galima kurti naujus tipus, kurie veikia kaip built-\/in tipai.
+
+Atlikdamas šį darbą pradėjau naudoti friend funkcijas, kurios leidžia tiesiogiai pasiekti P\+R\+I\+V\+A\+TE kintamuosius ( tačiau tame slypi daug pavojų).
+
+Skaitymo operatorius $\ast$$\ast$$>$$>$$\ast$$\ast$
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{c++\}}
+\DoxyCodeLine{friend std::istream\& operator>>(std::istream\& in, mok \&temp) \{}
+\DoxyCodeLine{   }
+\DoxyCodeLine{       in>>temp.vard\_>>temp.pav\_;}
+\DoxyCodeLine{       }
+\DoxyCodeLine{       return in;}
+\DoxyCodeLine{   \}}
+\end{DoxyCode}
+ Isvedimo operatorius $\ast$$\ast$$<$$<$$\ast$$\ast$
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{c++\}}
+\DoxyCodeLine{friend std::ostream\& operator<<(std::ostream\& out,std::vector<mok>\&temp) \{}
+\DoxyCodeLine{       for(int i=0; i<temp.size();i++)}
+\DoxyCodeLine{       \{}
+\DoxyCodeLine{           out<<std::left<<std::setw(11+3)<<temp[i].vard\_;}
+\DoxyCodeLine{           out<<std::left<<std::setw(11+3)<<temp[i].pav\_;}
+\DoxyCodeLine{       out<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal\_;}
+\DoxyCodeLine{           out<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm\_;}
+\DoxyCodeLine{           out<<std::endl;}
+\DoxyCodeLine{       \}}
+\DoxyCodeLine{       }
+\DoxyCodeLine{       return out;}
+\DoxyCodeLine{   \}}
+\end{DoxyCode}
+ Lyginimo operatorius $\ast$$\ast$$<$$\ast$$\ast$ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{c++\}}
+\DoxyCodeLine{friend bool operator<(const mok \&temp, int n) \{}
+\DoxyCodeLine{       return (temp.galm\_<n \&\& temp.gal\_<n);}
+\DoxyCodeLine{   \}}
+\end{DoxyCode}
+ Lyginimo operatorius $\ast$$\ast$$<$$\ast$$\ast$ (operatoriu persidengimas) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{c++\}}
+\DoxyCodeLine{   friend bool operator<(const mok \&temp1,const mok \&temp2) \{}
+\DoxyCodeLine{       return (temp1.galm\_<temp2.galm\_);}
+\DoxyCodeLine{   \}}
+\end{DoxyCode}
+ Lyginimo operatorius $\ast$$\ast$$>$=$\ast$$\ast$ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{c++\}}
+\DoxyCodeLine{   friend bool operator>=(const mok \&temp, int n) \{}
+\DoxyCodeLine{       return (temp.galm\_>=n \&\& temp.gal\_>=n);}
+\DoxyCodeLine{   \}}
+\end{DoxyCode}
+ Lyginimo operatorius $\ast$$\ast$==$\ast$$\ast$ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{c++\}}
+\DoxyCodeLine{   friend bool operator==(const mok \&temp1, const mok \&temp2)}
+\DoxyCodeLine{   \{}
+\DoxyCodeLine{       return (temp1.vard\_== temp2.vard\_);}
+\DoxyCodeLine{   \}}
+\end{DoxyCode}
+ Lyginimo operatorius {\bfseries{!=}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{c++\}}
+\DoxyCodeLine{   friend bool operator!=(const mok \&temp1, const mok \&temp2)}
+\DoxyCodeLine{   \{}
+\DoxyCodeLine{       return !(temp1.pav\_==temp2.pav\_);}
+\DoxyCodeLine{   \}}
+\end{DoxyCode}
+
+
+
+
+
+
+\subsubsection*{\+:computer\+:\href{https://github.com/odiraitis/TRECIASND/releases/tag/v1.2}{\texttt{ v1.\+5}} Ideta base class, bei copy semantika.}
+
+Bazinė klasė {\bfseries{zmogus}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ \{c++\}}
+\DoxyCodeLine{class zmogus\{}
+\DoxyCodeLine{public:}
+\DoxyCodeLine{    void set\_vardas(std::string v)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        vard\_=v;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    void set\_pavarde(std::string p)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        pav\_=p;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    virtual void set\_gal(double g) = 0;}
+\DoxyCodeLine{    virtual void set\_galm(double m) = 0;}
+\DoxyCodeLine{protected:}
+\DoxyCodeLine{    std::string vard\_;}
+\DoxyCodeLine{    std::string pav\_;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{\};}
+\end{DoxyCode}
+ Išvestinė klasė {\bfseries{mok}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ \{c++\}}
+\DoxyCodeLine{class mok: public zmogus}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{private:}
+\DoxyCodeLine{    double gal\_; // galutinis}
+\DoxyCodeLine{    double galm\_;}
+\DoxyCodeLine{public:}
+\DoxyCodeLine{    ~mok()\{\}}
+\DoxyCodeLine{    mok()\{}
+\DoxyCodeLine{        vard\_ = " ";}
+\DoxyCodeLine{        pav\_ = " ";}
+\DoxyCodeLine{        gal\_ = 0;}
+\DoxyCodeLine{        galm\_ = 0;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    // copy semantika}
+\DoxyCodeLine{    mok(const  mok\& a)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        vard\_ = a.vard\_;}
+\DoxyCodeLine{        pav\_ = a.pav\_;}
+\DoxyCodeLine{        gal\_ = a.gal\_;}
+\DoxyCodeLine{        galm\_ = a.galm\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    mok\& operator=(const mok\& a)\{}
+\DoxyCodeLine{        if(\&a == this) return *this;}
+\DoxyCodeLine{        vard\_ = a.vard\_;}
+\DoxyCodeLine{        pav\_ = a.pav\_;}
+\DoxyCodeLine{        gal\_ = a.gal\_;}
+\DoxyCodeLine{        galm\_ = a.galm\_;}
+\DoxyCodeLine{        return *this;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{   //setters}
+\DoxyCodeLine{    void set\_gal(double g);}
+\DoxyCodeLine{    void set\_galm(double m);}
+\DoxyCodeLine{    //getters}
+\DoxyCodeLine{    std::string vard()const}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return vard\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    std::string pav()const}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return pav\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    double gal()const}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return gal\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    double galm()const}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return galm\_;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    friend std::ostream\& operator<<(std::ostream\& out,std::vector<mok>\&temp) \{}
+\DoxyCodeLine{        for(int i=0; i<temp.size();i++)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            out<<std::left<<std::setw(11+3)<<temp[i].vard\_;}
+\DoxyCodeLine{            out<<std::left<<std::setw(11+3)<<temp[i].pav\_;}
+\DoxyCodeLine{        out<<std::left<<std::setw(16)<<std::fixed<<std::setprecision(2)<<temp[i].gal\_;}
+\DoxyCodeLine{            out<<std::left<<std::setw(5)<<std::fixed<<std::setprecision(2)<<temp[i].galm\_;}
+\DoxyCodeLine{            out<<std::endl;}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{        }
+\DoxyCodeLine{        return out;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    friend std::istream\& operator>>(std::istream\& in, mok \&temp) \{}
+\DoxyCodeLine{    }
+\DoxyCodeLine{        in>>temp.vard\_>>temp.pav\_;}
+\DoxyCodeLine{        }
+\DoxyCodeLine{        return in;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    friend bool operator<(const mok \&temp, int n) \{}
+\DoxyCodeLine{        return (temp.galm\_<n \&\& temp.gal\_<n);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    friend bool operator<(const mok \&temp1,const mok \&temp2) \{}
+\DoxyCodeLine{        return (temp1.galm\_<temp2.galm\_);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    friend bool operator>=(const mok \&temp, int n) \{}
+\DoxyCodeLine{        return (temp.galm\_>=n \&\& temp.gal\_>=n);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    friend bool operator==(const mok \&temp1, const mok \&temp2)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return (temp1.vard\_== temp2.vard\_);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    friend bool operator!=(const mok \&temp1, const mok \&temp2)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        return !(temp1.pav\_==temp2.pav\_);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\};}
+\end{DoxyCode}
+ 

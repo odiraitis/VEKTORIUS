@@ -127,10 +127,10 @@ int main()
         {
             int k=0;
             int nr=0;
-            fail_generav();
+            //fail_generav();
             std::string pav;
             
-            for(int i=10; i<=100000; i*=10)
+           for(int i=10; i<=100000; i*=10)
             {
                 std::string temp = std::to_string(i);
                 pav=temp +".txt";
@@ -139,12 +139,17 @@ int main()
             auto start = std::chrono::high_resolution_clock::now();
             std::vector<mok>lievi;
             atranka(lievi,A);
+            std::cout<<" Lievu studentu capacity yra : " <<lievi.capacity()<<std::endl;
+            std::cout<<" Lievu studentu size yra : " <<lievi.size()<<std::endl;
+            lievi.shrink_to_fit();
+            std::cout<<" Dabar lievu capacity yra :"<<lievi.capacity()<<std::endl;
+           // std::cout<<lievi.size()<<std::endl;
             int r=0;
             spausdinimas2(nr,A,lievi);
             //===================================
             auto end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff = end-start;
-            std::cout << "Failu generavimas ir nuskaitymas, paskirstymas uztruko: "
+            std::cout << "Failu paskirstymas uztruko: "
             << diff.count() << " s\n";
             break;
         }

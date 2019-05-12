@@ -265,3 +265,82 @@ public:
     }
 };
  ```
+-----------------------------------------------------------------
+ 
+ ### :computer:[v2.0](https://github.com/odiraitis/TRECIASND/releases/tag/v2.0) Ideta Doxygen dokumentacija ir Unit testu screenshotai.
+ 
+ 
+ Doxygen yra labai patogus TOOL kurti dokumentaciją.
+ 
+ Ivykdzius doxygen -g "file_name.cpp" ir doxygen "file_name.cpp" ** DOKUMENTACIJĄ SUKURIA DOXYGEN, NEREIKIA KURTI PAČIAM" 
+ 
+ Sukurtuose HTML failuose yra klasių diagramos, netgi klasių paveldėjimų .png failai.
+ 
+ Manau tai geriausia ir paprasčiausia priemonė kurti dokumentaciją.
+ 
+ -----------------------------------------------------------------
+ 
+ Unit testus atlikau naudodamas catch.hpp headerį. 
+ 
+ Sukūrus main ir funkcijų failus belieka includinti catch.hpp (#include "catch.hpp") ir galima pradėti atlikinėti testus. 
+ 
+ 
+```c++
+#define CATCH_CONFIG_MAIN
+
+#include "catch.hpp"
+
+char skaicius( int a ) {
+    return a;
+}
+TEST_CASE( "skaicius", "[skaicius]" ) {
+    REQUIRE( skaicius(1) == 1 ); // gerai
+    REQUIRE( skaicius(2) == 2 ); // gerai
+    REQUIRE( skaicius(3) == 4 ); // 3 nera lygu 4 turi buti failas
+    REQUIRE( skaicius(4) == 4 ); // gerai
+}
+```
+
+Tikrinu ar grazina gera skaiciu, kaip zinome 3 != 4 todel ismes klaida (screenshotai yra unit_test foldery)
+
+
+```c++
+#define CATCH_CONFIG_MAIN
+
+#include "catch.hpp"
+
+std::string zodis( std::string a ) {
+    return a;
+}
+
+TEST_CASE( "zodis", "zodis" ) {
+    REQUIRE( zodis("zodis") == "zodis" );
+}
+```
+
+Tikrinu ar grazina gera zodi (std::string tipo kintamaji),kaip matoma screenshotuose, testas pasiteisino
+
+
+```c++
+#define CATCH_CONFIG_MAIN
+
+#include "catch.hpp"
+
+int Factorial( int number ) {
+    return number <= 1 ? number : Factorial( number - 1 ) * number;  // fail
+    // return number <= 1 ? 1      : Factorial( number - 1 ) * number;  // pass
+}
+
+TEST_CASE( "Factorial of 0 is 1 (fail)", "[single-file]" ) {
+    REQUIRE( Factorial(0) == 1 );
+}
+
+TEST_CASE( "Factorials of 1 and higher are computed (pass)", "[single-file]" ) {
+    REQUIRE( Factorial(1) == 1 );
+    REQUIRE( Factorial(2) == 2 );
+    REQUIRE( Factorial(3) == 6 );
+    REQUIRE( Factorial(10) == 3628800 );
+}
+```
+
+Tikrinu ar grazina gera faktoriala, visais atvejais apskaiciuojamas gerai, isskyrus 0, nes mano algoritmu 0 faktorialas nera 1.

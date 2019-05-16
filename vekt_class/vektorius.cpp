@@ -127,7 +127,7 @@ int main()
         {
             int k=0;
             int nr=0;
-           // fail_generav();
+            fail_generav();
             std::string pav;
            
             for(int i=10; i<=100000; i*=10)

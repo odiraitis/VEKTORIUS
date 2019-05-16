@@ -1,6 +1,4 @@
-main:	funkc.o
-	g++ -o main std_vektorius.cpp funkc.o
-circle:
-	g++ -c -03 funkc.cpp
+main:
+	g++  -std=c++11 vektorius.cpp vekt_funkc.cpp -o main
 clean:
-	rm *.o main kieciukai.txt nuskriaustukai.txt
+	rm *.o main kieciukai.txt nuskriaustukai.txt 10.txt 100.txt 1000.txt 10000.txt 100000.txt

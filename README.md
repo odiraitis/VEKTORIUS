@@ -346,7 +346,12 @@ TEST_CASE( "Factorials of 1 and higher are computed (pass)", "[single-file]" ) {
 Tikrinu ar grazina gera faktoriala, visais atvejais apskaiciuojamas gerai, isskyrus 0, nes mano algoritmu 0 faktorialas nera 1.
 
 ----------------------------------------------------------------------------------------------
+
 #VEKTORIUS
+### :computer:[v3.0](https://github.com/odiraitis/VEKTORIUS/releases/tag/v3.0)
+
+
+Atsisiuntus release terminale, kad paleisti rasyti **g++ -std=c++11 vektorius.cpp vekt_funkc.cpp -o main , tuomet, kad paleisti rasyti ./main , paskui isvalyti text ir object failus rasyti make clean.**
 
 1. Parodysiu kaip veikia capacity() shrink_to_fit() size() erase() begin() end() funkcijos
 

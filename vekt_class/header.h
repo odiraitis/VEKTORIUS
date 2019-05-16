@@ -14,6 +14,7 @@
 #include <chrono>
 #include <random>
 #include "vektorius.h"
+
 class zmogus{
 public:
     void set_vardas(std::string v)

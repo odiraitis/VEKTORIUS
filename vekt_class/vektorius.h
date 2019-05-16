@@ -34,21 +34,34 @@ public:
         rearrange_pointers();
         
     };
-    
-    Vector(const Vector& x) :
+    //copy
+    Vector(const Vector& temp) :
     allocator_(),
-    capacity_(x.capacity()),
-    size_(x.size()),
-    array_(allocator_.allocate(x.capacity()))
+    capacity_(temp.capacity()),
+    size_(temp.size()),
+    array_(allocator_.allocate(temp.capacity()))
     {
         rearrange_pointers();
-        construct_elements(x.begin(), x.end(), array_start_);
+        construct_elements(temp.begin(), temp.end(), array_start_);
   
+    };
+    //move
+    Vector(Vector&& temp) :
+    allocator_(),
+    capacity_(temp.capacity_),
+    size_(temp.size_),
+    array_(temp.array_)
+    {
+        rearrange_pointers();
+        temp.array_ = nullptr;
+        temp.size_ = 0;
+        temp.capacity_ = 0;
+        temp.rearrange_pointers();
     };
     //destruktorius
     
    ~Vector() {
-        destroy_elements(array_, size_);
+        naikink(array_, size_);
         allocator_.deallocate(array_, capacity_);
         array_start_ = nullptr;
         array_end_ = nullptr;
@@ -56,18 +69,18 @@ public:
     }
     
     // = operatorius
-  Vector& operator=(Vector&& x)
+  Vector& operator=(Vector&& temp)
     {
-        destroy_elements(array_, capacity_);
+        naikink(array_, capacity_);
         allocator_.deallocate(array_, capacity_);
-        size_ = x.size_;
-        capacity_ = x.capacity_;
-        array_ = x.array_;
+        size_ = temp.size_;
+        capacity_ = temp.capacity_;
+        array_ = temp.array_;
         rearrange_pointers();
-        x.size_ = 0;
-        x.capacity_ = 0;
-        x.array_ = nullptr;
-        x.rearrange_pointers();
+        temp.size_ = 0;
+        temp.capacity_ = 0;
+        temp.array_ = nullptr;
+        temp.rearrange_pointers();
         return *this;
     }
     // assign
@@ -190,7 +203,7 @@ public:
     
     void clear()
     {
-        destroy_elements(array_, size_);
+        naikink(array_, size_);
         size_ = 0;
         rearrange_pointers();
     }
@@ -332,7 +345,7 @@ public:
     {
         if (n <= size_)
         {
-            destroy_elements(array_start_ + n, size_ - n);
+            naikink(array_start_ + n, size_ - n);
         }
         else increase_array(std::max(n, 2 * capacity_));
         size_ = n;
@@ -342,7 +355,7 @@ public:
     {
         if (n <= size_)
         {
-            destroy_elements(array_start_ + n, size_ - n);
+            naikink(array_start_ + n, size_ - n);
         }
         else
         {
@@ -353,13 +366,13 @@ public:
         size_ = n;
     }
 //swapas
-    void swap(Vector& x)
+    void swap(Vector& temp)
     {
-        std::swap(capacity_, x.capacity_);
-        std::swap(size_, x.size_);
-        std::swap(array_, x.array_);
+        std::swap(capacity_, temp.capacity_);
+        std::swap(size_, temp.size_);
+        std::swap(array_, temp.array_);
         rearrange_pointers();
-        x.rearrange_pointers();
+        temp.rearrange_pointers();
     }
 
 private:
@@ -383,7 +396,7 @@ private:
         pointer new_array = allocator_.allocate(new_size);
         construct_elements(begin(), std::min(end(), begin() + new_size), new_array);
         
-        destroy_elements(array_, size_);
+        naikink(array_, size_);
         allocator_.deallocate(array_, capacity_);
         array_ = new_array;
         capacity_ = new_size;
@@ -404,7 +417,6 @@ private:
     {
         
         const difference_type distance = end - begin;
-        //std::cout << "c_elem 1 bckw " << std::endl;
         for (difference_type i = distance - 1; i >= 0; --i)
         {
             allocator_.construct(destination + i, *(end - 1));
@@ -414,14 +426,13 @@ private:
     
     void construct_elements(pointer destination, size_type count, value_type value)
     {
-        //std::cout << "c_elem 2 " << std::endl;
         for (size_type i = 0; i < count; ++i)
         {
             allocator_.construct(destination + i, value);
         }
     }
     
-    void destroy_elements(pointer start, size_type n)
+    void naikink(pointer start, size_type n)
     {
         for (size_type i = 0; i < n; ++i)
         {

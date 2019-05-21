@@ -23,12 +23,11 @@ public:
     {
         pav_=p;
     }
-    virtual void set_gal(double g) = 0;
-    virtual void set_galm(double m) = 0;
+  virtual void set_gal(double g) = 0;
+  virtual void set_galm(double m) = 0;
 protected:
     std::string vard_;
     std::string pav_;
-    
 };
 class mok: public zmogus
 {

@@ -31,7 +31,7 @@ public:
     size_(0),
     array_(nullptr)
     {
-        rearrange_pointers();
+        rearrange_pointers(); //pertvarkau pointerius
         
     };
     //copy
@@ -41,8 +41,8 @@ public:
     size_(temp.size()),
     array_(allocator_.allocate(temp.capacity()))
     {
-        rearrange_pointers();
-        construct_elements(temp.begin(), temp.end(), array_start_);
+        rearrange_pointers();  // pertvarkau pointerius
+        construct_elements(temp.begin(), temp.end(), array_start_); // konstruoju su allocatorium
   
     };
     //move
@@ -61,8 +61,8 @@ public:
     //destruktorius
     
    ~Vector() {
-        naikink(array_, size_);
-        allocator_.deallocate(array_, capacity_);
+        naikink(array_, size_);  // destroyinu elementus
+        allocator_.deallocate(array_, capacity_); //atlaisvinu memory
         array_start_ = nullptr;
         array_end_ = nullptr;
         array_range_end_ = nullptr;
@@ -71,6 +71,8 @@ public:
     // = operatorius
   Vector& operator=(Vector&& temp)
     {
+        
+        //atlaisvinu atminti priskiriu tempinius kintamuosius pakeiciu rodykles ir nunuliniu tempinius
         naikink(array_, capacity_);
         allocator_.deallocate(array_, capacity_);
         size_ = temp.size_;
@@ -90,7 +92,6 @@ public:
         construct_elements(array_, n, val);
         size_ = n;
         rearrange_pointers();
-        //std::cout << "assign 1" << std::endl;
     }
     
     void assign(pointer first, pointer last) {
@@ -98,7 +99,6 @@ public:
         construct_elements(first, last, array_start_);
         size_ = last - first;
         rearrange_pointers();
-        //std::cout << "assign 2" << std::endl;
     }
     
     void assign(std::initializer_list<value_type> il) {
@@ -110,7 +110,6 @@ public:
         construct_elements(il.begin(), il.end(), begin());
         size_ = il.size();
         rearrange_pointers();
-        //std::cout << "assign 3" << std::endl;
     }
     
 
@@ -405,7 +404,6 @@ private:
     void construct_elements(const_iterator begin, const_iterator end, const_iterator destination)
     {
         const difference_type distance = end - begin;
-        //std::cout << "c_elem 1 " << std::endl;
         for (difference_type i = 0; i < distance; ++i)
         {
             allocator_.construct(destination +i, *(begin));

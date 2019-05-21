@@ -17,7 +17,7 @@
 
 1. Parodysiu kaip veikia capacity() shrink_to_fit() size() erase() begin() end() funkcijos
 
-##capacity()
+## capacity()
 
 vector: lievi.capacity()
 
@@ -41,7 +41,7 @@ std::cout<<" Lievu studentu capacity yra : " <<lievi.capacity()<<std::endl;
 
 -----------------------------------------------------------------------
 
-##size()
+## size()
 
 vector: lievi.size()
 

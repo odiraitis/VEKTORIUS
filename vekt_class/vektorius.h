@@ -8,6 +8,19 @@
 #include <utility>
 
 template<class T,class Alloc = std::allocator<T>> class Vector {
+private:
+    size_t sz{};
+    size_t max{};
+    T *elem;
+    friend Vector<T> operator+(const Vector<T>& a, const Vector<T>& b) {
+        
+       if (a.size() != b.size())
+            throw std::runtime_error("Vektorių dydžio neatitikimas!");
+        auto size = a.size();
+        Vector c(size);
+        for (auto i = 0; i != a.size(); ++i) c[i] = a[i] + b[i];
+        return c;
+    }
 public:
     
     typedef T value_type;
@@ -24,52 +37,138 @@ public:
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
     
     // konstruktoriai
-    
-    explicit Vector(const allocator_type& alloc = allocator_type()) :
+   
+   explicit Vector(const allocator_type& alloc = allocator_type()) :
     allocator_(alloc),
     capacity_(0),
     size_(0),
     array_(nullptr)
     {
-        rearrange_pointers(); //pertvarkau pointerius
-        
+        rearrange_pointers();
+       // std::cout << "c-tor 1" << std::endl;
     };
-    //copy
-    Vector(const Vector& temp) :
-    allocator_(),
-    capacity_(temp.capacity()),
-    size_(temp.size()),
-    array_(allocator_.allocate(temp.capacity()))
-    {
-        rearrange_pointers();  // pertvarkau pointerius
-        construct_elements(temp.begin(), temp.end(), array_start_); // konstruoju su allocatorium
-  
-    };
-    //move
-    Vector(Vector&& temp) :
-    allocator_(),
-    capacity_(temp.capacity_),
-    size_(temp.size_),
-    array_(temp.array_)
+    
+    Vector(size_type n, value_type val, const allocator_type& alloc = allocator_type()) :
+    allocator_(alloc),
+    capacity_(n),
+    size_(n),
+    array_(allocator_.allocate(n))
     {
         rearrange_pointers();
-        temp.array_ = nullptr;
-        temp.size_ = 0;
-        temp.capacity_ = 0;
-        temp.rearrange_pointers();
+        construct_elements(array_, n, val);
+       // std::cout << "c-tor 2" << std::endl;
     };
-    //destruktorius
     
-   ~Vector() {
-        naikink(array_, size_);  // destroyinu elementus
-        allocator_.deallocate(array_, capacity_); //atlaisvinu memory
+    explicit Vector(size_type n) :
+    allocator_(),
+    capacity_(n),
+    size_(n),
+    array_(allocator_.allocate(n))
+    {
+        rearrange_pointers();
+       // std::cout << "c-tor 3" << std::endl;
+    };
+
+    Vector(pointer first, pointer last, const allocator_type& alloc = allocator_type()) :
+    allocator_(alloc),
+    capacity_(static_cast<size_type>(last - first)),
+    size_(static_cast<size_type>(last - first)),
+    array_(allocator_.allocate(static_cast<size_type>(last - first)))
+    {
+        rearrange_pointers();
+        construct_elements(first, last, array_start_);
+       // std::cout << "c-tor 4" << std::endl;
+    };
+    
+   Vector(const Vector& x) :
+    allocator_(),
+    capacity_(x.capacity()),
+    size_(x.size()),
+    array_(allocator_.allocate(x.capacity()))
+    {
+        rearrange_pointers();
+        construct_elements(x.begin(), x.end(), array_start_);
+        //std::cout << "c-tor 5.0" << std::endl;
+    };
+    
+    Vector(const Vector& x, const allocator_type& alloc) :
+    allocator_(alloc),
+    capacity_(x.capacity()),
+    size_(x.size()),
+    array_(allocator_.allocate(x.capacity()))
+    {
+        rearrange_pointers();
+        construct_elements(x.begin(), x.end(), array_start_);
+        //std::cout << "c-tor 6" << std::endl;
+    };
+    
+    Vector(Vector&& x) :
+    allocator_(),
+    capacity_(x.capacity_),
+    size_(x.size_),
+    array_(x.array_)
+    {
+        rearrange_pointers();
+        x.array_ = nullptr;
+        x.size_ = 0;
+        x.capacity_ = 0;
+        x.rearrange_pointers();
+    };
+    Vector(Vector&& x, const allocator_type& alloc) :
+    allocator_(alloc),
+    capacity_(x.capacity_),
+    size_(x.size_),
+    array_(x.array_)
+    {
+        rearrange_pointers();
+        x.array_ = nullptr;
+        x.size_ = 0;
+        x.capacity_ = 0;
+        x.rearrange_pointers();
+    };
+    
+    Vector(std::initializer_list<value_type> il, const allocator_type& alloc = allocator_type()) :
+    allocator_(alloc),
+    capacity_(il.size()),
+    size_(il.size()),
+    array_(allocator_.allocate(il.size()))
+    {
+        rearrange_pointers();
+        construct_elements(il.begin(), il.end(), array_start_);
+        std::cout << "c-tor 8" << std::endl;
+    };
+    
+    //desructor
+
+    ~Vector() {
+        naikink(array_, size_);
+        allocator_.deallocate(array_, capacity_);
         array_start_ = nullptr;
         array_end_ = nullptr;
         array_range_end_ = nullptr;
+        //std::cout << "d - tor" << std::endl;
     }
-    
+
     // = operatorius
-  Vector& operator=(Vector&& temp)
+    Vector& operator=(const Vector& temp)
+    {
+        if (capacity_ >= temp.size_) {
+            size_ = temp.size();
+        }
+        else {
+            naikink(array_, size_);
+            allocator_.deallocate(array_, capacity_);
+            capacity_ = temp.size();
+            size_ = temp.size();
+            array_ = allocator_.allocate(temp.size());
+        }
+        rearrange_pointers();
+        construct_elements(temp.begin(), temp.end(), array_start_);
+        std::cout << "copy" << std::endl;
+        return *this;
+    }
+
+   Vector& operator=(Vector&& temp)
     {
         
         //atlaisvinu atminti priskiriu tempinius kintamuosius pakeiciu rodykles ir nunuliniu tempinius
@@ -83,8 +182,10 @@ public:
         temp.capacity_ = 0;
         temp.array_ = nullptr;
         temp.rearrange_pointers();
+        std::cout<<"move"<<std::endl;
         return *this;
     }
+
     // assign
     
     void assign(size_type n, const_reference val) {
@@ -364,6 +465,7 @@ public:
         }
         size_ = n;
     }
+
 //swapas
     void swap(Vector& temp)
     {
@@ -382,6 +484,7 @@ private:
     pointer array_start_;
     pointer array_end_;
     pointer array_range_end_;
+   
     
     void rearrange_pointers()
     {
